@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { HamburgerContext } from '../common/HamburgerContext';
+import { HamburgerContext } from '../context/HamburgerContext';
 
 const HamburgerBtn = () => {
   const { isExpanded, toggleExpandedNav } = useContext(HamburgerContext);

@@ -1,15 +1,47 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { formatDate } from '../../utils/FormatDate'
 
 const EventDetails = () => {
-    const { id } = useParams();
+  const { id } = useParams()
+  const [event, setEvent] = useState(null)
 
-    return (
-        <div>
-            <h1>Event Details</h1>
-            <p>Event ID: {id}</p>
+  useEffect(() => {
+    fetch(`https://localhost:7122/api/events/${id}`)
+      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(data => {
+        setEvent(data)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }, [id])
+
+
+
+  if (!event) return <span>404 - Event not found</span>
+    
+
+    const formattedPrice = event.price % 1 === 0
+        ? event.price.toString()
+        : event.price.toFixed(2)
+
+  return (
+    <div className="eventDetails">
+        <div className='imageContainer'>
+            <img className='eventImg' src={event.imageUrl} alt="" />
         </div>
-    )
-}
+        <h2>{event.eventName}</h2>
+        <div className='descriptionContainer'>
+            <h4>About Event</h4>
+            <p>{event.description}</p>
+        </div>
 
+        <span className='eventLocation'>{event.location}</span>
+        <span className='eventDate'>{formatDate(event.startDate)}</span>
+        <span className='eventPrice'>{formattedPrice}</span>
+    </div>
+  )
+}
+  
 export default EventDetails
