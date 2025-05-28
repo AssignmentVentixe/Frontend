@@ -1,38 +1,44 @@
-import React from 'react'
-import PageIndicator from './PageIndicator';
-import Logo from '../components/Logo'
-import HamburgerBtn from './HamburgerBtn'
-import ExpandedHamburgerNav from './ExpandedHamburgerNav';
-import { HamburgerProvider } from '../common/HamburgerContext';
-import { NavLink } from 'react-router-dom';
-
+import React from "react";
+import PageIndicator from "./PageIndicator";
+import Logo from "../components/Logo";
+import LogoutBtn from "./LogOutBtn";
+import HamburgerBtn from "./HamburgerBtn";
+import ExpandedHamburgerNav from "./ExpandedHamburgerNav";
+import { HamburgerProvider } from "../context/HamburgerProvider";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <HamburgerProvider>
-      <nav className='navbar'>
+      <nav className="navbar">
         <PageIndicator />
         <Logo />
-        <div className='HamburgerContainer'>
+        <div className="HamburgerContainer">
           <HamburgerBtn />
           <ExpandedHamburgerNav />
         </div>
-        <div className='navlinkContainer'>
-          <NavLink to="/events" end className={({ isActive }) => `navlink ${isActive ? 'active' : ''}`}>
-            <i class="fa-solid fa-ticket"></i>
-            <span className='navlinkText'>Events</span>
+        <div className="navlinkContainer">
+          <NavLink
+            to="/events"
+            end
+            id="eventsLink"
+            className={({ isActive }) => `navlink ${isActive ? "active" : ""}`}
+          >
+            <span className="navlinkText">Events</span>
           </NavLink>
-          <NavLink to="/bookings" end className={({ isActive }) => `navlink ${isActive ? 'active' : ''}`}>
-            <i class="fa-regular fa-square-check"></i>
-            <span className='navlinkText'>Bookings</span>
+          <NavLink
+            to="/bookings"
+            end
+            id="bookingsLink"
+            className={({ isActive }) => `navlink ${isActive ? "active" : ""}`}
+          >
+            <span className="navlinkText">Bookings</span>
           </NavLink>
         </div>
-
-
+        <LogoutBtn />
       </nav>
     </HamburgerProvider>
+  );
+};
 
-  )
-}
-
-export default Navbar
+export default Navbar;

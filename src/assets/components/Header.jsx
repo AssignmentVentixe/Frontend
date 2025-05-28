@@ -1,15 +1,16 @@
-import React from 'react'
-import BreadcrumbNav from './BreadcrumbNav';
+import React from "react";
+import BreadcrumbNav from "./BreadcrumbNav";
+import UserWelcome from "./UserWelcome";
 
 const Header = () => {
   return (
     <header>
-        <div className='breadcrumbContainer'>
-          <BreadcrumbNav />
-        </div>
-      <h1>I am header</h1>
+      <div className="breadcrumbContainer">
+        <BreadcrumbNav />
+      </div>
+      <UserWelcome />
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

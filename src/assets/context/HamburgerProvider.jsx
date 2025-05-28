@@ -1,6 +1,5 @@
-import React, { createContext, useState } from 'react';
-
-export const HamburgerContext = createContext();
+import React, { useState } from "react";
+import { HamburgerContext } from "./HamburgerContext";
 
 export const HamburgerProvider = ({ children }) => {
   const [isExpanded, setIsExpanded] = useState(false);
