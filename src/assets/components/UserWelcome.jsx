@@ -1,18 +1,8 @@
-import React, { useState, useEffect } from "react";
-import api from "../../services/api";
+import React, { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 export default function UserWelcome() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    api.get("/auth/me").then((res) => {
-      setUser(res.data);
-    });
-  }, []);
-
-  if (!user) {
-    return null;
-  }
+  const { user } = useContext(AuthContext);
 
   return (
     <div>

@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { formatDate } from '../../utils/FormatDate'
+import eventApi from '../../services/eventApi'
 
 const EventDetails = () => {
   const { id } = useParams()
   const [event, setEvent] = useState(null)
 
   useEffect(() => {
-    fetch(`https://localhost:7122/api/events/${id}`)
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-      .then(data => {
-        setEvent(data)
-      })
+    eventApi.get(`/events/${id}`)
+      .then(res => setEvent(res.data))
       .catch(err => {
         console.error(err)
       })

@@ -1,42 +1,90 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { login } from "../../services/auth";
+import validateEmail from "../../common/EmailValidation";
+import validatePassword from "../../common/PasswordValidation";
+import Logo from "../components/Logo";
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
-  const [pw, setPw] = useState("");
-  const [err, setErr] = useState(null);
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [submitError, setSubmitError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErr(null);
+    setEmailError("");
+    setPasswordError("");
+    setSubmitError(null);
+
+    let hasError = false;
+
+    if (!validateEmail(email)) {
+      setEmailError("Invalid email format");
+      hasError = true;
+    }
+
+    if (!validatePassword(password)) {
+      setPasswordError(
+        "Password must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, and one number and one special character"
+      );
+      hasError = true;
+    }
+
+    if (hasError) return;
+
     try {
-      await login(email, pw);
-      navigate("/events");
+      const response = await login(email, password);
+      if (response.status === 200) {
+        navigate("/events");
+      }
     } catch {
-      setErr("Failed to log in. Please check your email and password.");
+      setSubmitError("Failed to log in. Please check your email and password.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {err && <p style={{ color: "red" }}>{err}</p>}
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        value={pw}
-        onChange={(e) => setPw(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      <button type="submit">Logga in</button>
-    </form>
+    <div className="signContainer">
+      <Logo />
+      <form className="signForm" onSubmit={handleSubmit} noValidate>
+        <div className="formGroup">
+          <label>Email</label>
+          <input
+            className="signInput"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          {emailError && <div className="errorMessage">{emailError}</div>}
+        </div>
+
+        <div className="formGroup">
+          <label>Password</label>
+          <input
+            className="signInput"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          {passwordError && <div className="errorMessage pwError">{passwordError}</div>}
+        </div>
+
+        {submitError && <div className="errorMessage">{submitError}</div>}
+
+        <button className="btn formSubmit" type="submit">
+          <span>Log In</span>
+        </button>
+      </form>
+      <div className="signInRedirect">
+        <span>Don't have an account?</span>
+        <NavLink to="/register" className="signRedirectLink">
+          <span>Sign Up</span>
+        </NavLink>
+      </div>
+    </div>
   );
 }

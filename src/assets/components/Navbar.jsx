@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PageIndicator from "./PageIndicator";
 import Logo from "../components/Logo";
 import LogoutBtn from "./LogOutBtn";
@@ -6,8 +6,11 @@ import HamburgerBtn from "./HamburgerBtn";
 import ExpandedHamburgerNav from "./ExpandedHamburgerNav";
 import { HamburgerProvider } from "../context/HamburgerProvider";
 import { NavLink } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 const Navbar = () => {
+
+  const { user } = useContext(AuthContext);
   return (
     <HamburgerProvider>
       <nav className="navbar">
@@ -35,7 +38,8 @@ const Navbar = () => {
             <span className="navlinkText">Bookings</span>
           </NavLink>
         </div>
-        <LogoutBtn />
+        {user ? <LogoutBtn /> : null}
+        
       </nav>
     </HamburgerProvider>
   );

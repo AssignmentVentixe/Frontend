@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import EventCard from "../components/EventCard";
 import SearchBar from "../components/SearchBar";
+import eventApi from "../../services/eventApi";
 
 const Events = () => {
   const BATCH_SIZE = 10;
@@ -11,12 +12,9 @@ const Events = () => {
   const loaderRef = useRef(null);
 
   useEffect(() => {
-    fetch("https://localhost:7122/api/events")
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then((data) => setEvents(data))
+    eventApi
+      .get("/events")
+      .then((res) => setEvents(res.data))
       .catch((err) => console.error(err));
   }, []);
 

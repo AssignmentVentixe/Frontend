@@ -35,6 +35,7 @@
   /* Accent */
   --yellow-100: #ffca39;
   --yellow-90: #ffefc3;
+  --red-dark: #e94d3f;
 
   /* Grayscale */
   --gray-10: #ffffff;
@@ -177,7 +178,7 @@ button {
 
   &:focus {
     outline: none;
-    /* box-shadow: var(--button-focus-shadow); */
+    box-shadow: var(--button-focus-shadow);
   }
 }
 
@@ -377,23 +378,32 @@ a {
 
 .logoContainer {
   display: flex;
-  margin-right: auto;
+
   align-items: center;
   gap: 0.7rem;
-
-  @media (width >=768px) {
-    margin: 0;
-  }
 }
 
 .logoText {
-  display: none;
   font-size: 1.6em;
   font-weight: 500;
   color: var(--logo-text-color);
+}
 
-  @media (width >=1400px) {
-    display: flex;
+.navbar > .logoContainer {
+  margin-right: auto;
+  @media (width >=768px) {
+    margin: 0;
+  }
+
+  > .logoText {
+    display: none;
+    font-size: 1.6em;
+    font-weight: 500;
+    color: var(--logo-text-color);
+
+    @media (width >=1400px) {
+      display: flex;
+    }
   }
 }
 
@@ -827,9 +837,96 @@ input:checked + .slider:before {
   border-radius: 1rem;
 }
 
-
-.contactContainer a{
+.contactContainer a {
   color: var(--link-color);
   text-decoration: none;
   font-weight: 600;
+}
+
+/* Sign In/Up */
+.signContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--nav-background-color);
+  padding: 3rem;
+  gap: 1rem;
+  .registerHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    h3 {
+      margin: 0;
+      font-size: 1.6em;
+      font-weight: 500;
+      color: var(--logo-text-color);
+    }
+  }
+
+  @media (width >=768px) {
+    justify-content: center;
+    box-shadow: 1px 2px 4px rgba(73, 71, 73, 0.07);
+    padding: 4rem;
+    padding-bottom: 0;
+    width: auto;
+    height: auto;
+    border-radius: 2rem;
+  }
+}
+
+.signInRedirect {
+  @media (width >=768px) {
+    padding: 2rem 0rem 1rem 0;
+  }
+  .signRedirectLink {
+    margin-left: 0.4rem;
+    color: var(--link-color);
+  }
+}
+
+.signInput {
+  padding: 1rem;
+  border-radius: 1rem;
+  outline: none;
+  border: none;
+  &::hover {
+    color: var(--input-placeholder-color);
+  }
+}
+
+.signForm {
+  display: grid;
+  width: auto;
+  height: auto;
+  gap: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formSubmit {
+  border-radius: 2rem;
+  background-color: var(--primary-100);
+}
+
+.paddingBottom {
+  @media (width >=768px) {
+    padding-bottom: 3rem;
+  }
+}
+
+.errorMessage {
+  min-height: 1rem;
+  font-size: small;
+  color: var(--red-dark);
+}
+
+.pwError {
+  max-width: 350px;
 }
