@@ -5,8 +5,8 @@ export default function UserWelcome() {
   const { user } = useContext(AuthContext);
 
   return (
-    <div>
-      Welcome {user.firstName} {user.lastName}!
-    </div>
+    <span className="userName">
+      {user.firstName} {user.lastName}
+    </span>
   );
 }

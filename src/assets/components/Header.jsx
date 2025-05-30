@@ -1,18 +1,22 @@
 import React, { useContext } from "react";
-import BreadcrumbNav from "./BreadcrumbNav";
 import UserWelcome from "./UserWelcome";
-import LogInBtn from "./LogInBtn";
+import LogInLink from "./LogInLink";
 import AuthContext from "../context/AuthContext";
+import RegisterLink from "./RegisterLink";
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
-
+  const { user, loading } = useContext(AuthContext);
   return (
     <header>
-      <div className="breadcrumbContainer">
-        <BreadcrumbNav />
-      </div>
-      {user ? <UserWelcome /> : <LogInBtn />}
+      {loading ? null : user ? (
+        <UserWelcome />
+      ) : (
+        <div className="headerLinks">
+          <LogInLink />
+          <span> / </span>
+          <RegisterLink />
+        </div>
+      )}
     </header>
   );
 };

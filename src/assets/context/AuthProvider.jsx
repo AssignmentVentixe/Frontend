@@ -3,25 +3,29 @@ import AuthContext from "./AuthContext";
 import api from "../../services/authApi";
 
 export default function AuthProvider({ children }) {
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api
       .get("/auth/me")
-      .then((res) => setUser(res.data))
+      .then((res) => {
+        setUser(res.data);
+      })
       .catch((err) => {
         if (err.response?.status === 401) {
           setUser(null);
         } else {
-          console.error(err);
           setUser(null);
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
-  console.log("AuthProvider: User state initialized:", user);
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, loading, setUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,4 +1,3 @@
-// src/pages/RequestRegistration.jsx
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import validateEmail from "../../common/EmailValidation";

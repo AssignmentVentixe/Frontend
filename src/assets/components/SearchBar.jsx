@@ -5,6 +5,7 @@ const SearchBar = ({ value, onChange, placeholder = "Search anything…" }) => {
   return (
     <div className="searchContainer">
       <input
+        id="searchInput"
         type="text"
         className="searchInput"
         placeholder={placeholder}

@@ -1,4 +1,3 @@
-// src/pages/CompleteRegistration.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import validatePassword from "../../common/PasswordValidation";
@@ -12,7 +11,7 @@ const CompleteRegistration = () => {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-   const [passwordError, setPasswordError] = useState(""); 
+  const [passwordError, setPasswordError] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -77,6 +76,7 @@ const CompleteRegistration = () => {
           <input
             className="signInput"
             type="text"
+            autoComplete="given-name"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
@@ -87,7 +87,8 @@ const CompleteRegistration = () => {
           <label>Last Name</label>
           <input
             className="signInput"
-            type="text"
+            type="name"
+            autoComplete="family-name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
@@ -103,9 +104,7 @@ const CompleteRegistration = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {passwordError && (
-            <div className="errorMessage">{passwordError}</div>
-          )}
+          {passwordError && <div className="errorMessage">{passwordError}</div>}
         </div>
 
         <span className="errorMessage">{error}</span>

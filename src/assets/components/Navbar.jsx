@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import PageIndicator from "./PageIndicator";
+
 import Logo from "../components/Logo";
 import LogoutBtn from "./LogOutBtn";
 import HamburgerBtn from "./HamburgerBtn";
@@ -9,12 +9,11 @@ import { NavLink } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 
 const Navbar = () => {
-
   const { user } = useContext(AuthContext);
+
   return (
     <HamburgerProvider>
       <nav className="navbar">
-        <PageIndicator />
         <Logo />
         <div className="HamburgerContainer">
           <HamburgerBtn />
@@ -29,17 +28,20 @@ const Navbar = () => {
           >
             <span className="navlinkText">Events</span>
           </NavLink>
-          <NavLink
-            to="/bookings"
-            end
-            id="bookingsLink"
-            className={({ isActive }) => `navlink ${isActive ? "active" : ""}`}
-          >
-            <span className="navlinkText">Bookings</span>
-          </NavLink>
+          {user ? (
+            <NavLink
+              to="/bookings"
+              end
+              id="bookingsLink"
+              className={({ isActive }) =>
+                `navlink ${isActive ? "active" : ""}`
+              }
+            >
+              <span className="navlinkText">Bookings</span>
+            </NavLink>
+          ) : null}
         </div>
         {user ? <LogoutBtn /> : null}
-        
       </nav>
     </HamburgerProvider>
   );
