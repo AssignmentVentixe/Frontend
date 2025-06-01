@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 import { logout } from "../../services/auth";
 
 const LogOutBtn = () => {
+  const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      navigate("/login");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        // Ta bort sessionStorage och uppdatera context
+        sessionStorage.removeItem("user");
+        setUser(null);
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.error("Logout failed:", err);
+      });
   };
 
   return (

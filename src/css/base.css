@@ -1266,3 +1266,14 @@ body.modalOpen {
 .toast.error {
   background-color: var(--red-dark);
 }
+
+.privacyContainer,
+.termsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  h3,
+  h5 {
+    margin: 0.5rem 0;
+  }
+}
