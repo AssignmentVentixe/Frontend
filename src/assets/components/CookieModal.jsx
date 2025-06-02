@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { ConsentContext } from "../context/ConsentContext";
+import { Link } from "react-router-dom";
 
 export const CookieModal = () => {
   const { consent, setConsent, showModal, setShowModal } =
@@ -60,14 +61,14 @@ export const CookieModal = () => {
             icon at the bottom left of the page to reopen this dialog.
           </p>
           <p>
-            <a
+            <Link
               className="cookie-link"
-              href="https://cookieinformation.com/sv/resurser/blog-sv/digital-service-act-cookie-popup/"
+              to="https://cookieinformation.com/sv/resurser/blog-sv/digital-service-act-cookie-popup/"
               target="_blank"
               rel="noopener noreferrer"
             >
               <span>Learn more here</span>
-            </a>
+            </Link>
           </p>
         </div>
 

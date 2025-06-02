@@ -10,7 +10,6 @@ const LogOutBtn = () => {
   const handleLogout = () => {
     logout()
       .then(() => {
-        // Ta bort sessionStorage och uppdatera context
         sessionStorage.removeItem("user");
         setUser(null);
         navigate("/login");
