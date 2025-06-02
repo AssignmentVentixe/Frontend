@@ -27,9 +27,12 @@ const RequestRegistration = () => {
     }
     setLoading(true);
     try {
-      await api.post("/auth/request-registration", { email });
-
+      console.log("Requesting registration for email:", email);
+      const res = await api.post("/auth/request-registration", { email });
+      console.log("Registration request sent successfully");
+      console.log("Response data:", res.data);
       navigate("/register/verify", { state: { email } });
+      console.log("Redirecting to verification page");
     } catch {
       setError("Failed to send verification code");
     } finally {
