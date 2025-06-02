@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const bookingApi = axios.create({
-  baseURL: "https://localhost:7101/api",
-//   withCredentials: true,       // för att skicka JWT-cookie
+  baseURL:
+    "https://booking-api-ventixe-e5hydeevg6htf7br.swedencentral-01.azurewebsites.net/api",
   timeout: 10000,
   headers: {
     Accept: "application/json",

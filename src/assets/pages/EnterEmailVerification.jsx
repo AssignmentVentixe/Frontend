@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import api from "../../services/authApi";
 
 const EnterEmailVerification = () => {
   const navigate = useNavigate();
@@ -23,22 +24,13 @@ const EnterEmailVerification = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("https://localhost:7107/api/auth/verify-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, code }),
-      });
-
-      if (!res.ok) {
-        throw new Error("An error occurred while verifying the code");
-      }
-
-      const data = await res.json();
+      const res = await api.post("/auth/verify-email", { email, code });
+      const data = res.data;
       navigate("/register/complete", {
         state: { email, signupToken: data.signupToken },
       });
-    } catch (err) {
-      setError(err.message);
+    } catch {
+      setError("An error occurred while verifying the code");
     } finally {
       setLoading(false);
     }

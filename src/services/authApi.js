@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://localhost:7107/api",
+  baseURL: "https://auth-api-ventixe-b9dyccgkh4egdtd8.swedencentral-01.azurewebsites.net/api",
   withCredentials: true,
   timeout: 10000,
   headers: {
@@ -17,10 +17,7 @@ api.interceptors.response.use(
       error.response?.status === 401 &&
       !error.config.url.includes("/auth/login") &&
       !window.location.pathname.includes("/login")
-    ) {
-      // window.location.href = "/login";
-      console.log("Redirecting to login due to 401 Unauthorized error.");
-    }
+    ) 
     return Promise.reject(error);
   }
 );

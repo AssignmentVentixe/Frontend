@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const eventApi = axios.create({
-  baseURL: "https://localhost:7122/api",
+  baseURL:
+    "https://event-ventixe-fpbddha3bcfmc4ef.swedencentral-01.azurewebsites.net/api",
   timeout: 10000,
   headers: {
     Accept: "application/json",

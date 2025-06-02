@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import validatePassword from "../../common/PasswordValidation";
+import api from "../../services/authApi";
 
 const CompleteRegistration = () => {
   const navigate = useNavigate();
@@ -36,28 +37,19 @@ const CompleteRegistration = () => {
     }
     setLoading(true);
     try {
-      const res = await fetch("https://localhost:7107/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${signupToken}`,
-        },
-        body: JSON.stringify({
-          email,
-          firstName,
-          lastName,
-          password,
-        }),
-      });
-
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || "Something went wrong during registration");
-      }
+      await api.post(
+        "/auth/register",
+        { email, firstName, lastName, password },
+        {
+          headers: {
+            Authorization: `Bearer ${signupToken}`,
+          },
+        }
+      );
 
       navigate("/login");
-    } catch (err) {
-      setError(err.message);
+    } catch {
+      setError("Something went wrong during registration");
     } finally {
       setLoading(false);
     }

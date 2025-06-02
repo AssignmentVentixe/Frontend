@@ -2,33 +2,31 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/FormatDate";
 import SearchBar from "../components/SearchBar";
+import bookingApi from "../../services/bookingApi";
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await fetch("https://localhost:7101/api/bookings", {
-          credentials: "include",
+        const response = await bookingApi.get("/bookings", {
+          withCredentials: true,
         });
 
-        if (!response.ok) {
-          if (response.status === 401) {
-            navigate("/login");
-            return;
-          }
-          throw new Error("Failed to fetch bookings");
+        if (response.status < 200 || response.status >= 300) {
+          navigate("/login");
+          return;
         }
 
         const data = await response.json();
         setBookings(data);
-      } catch (err) {
-        setError(err.message);
+      } catch {
+        navigate("/login");
       } finally {
         setIsLoading(false);
       }
@@ -48,20 +46,21 @@ const Bookings = () => {
   });
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="bookings-container">
-      <h2>My Bookings</h2>
-      <SearchBar
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Search bookings..."
-      />
-      {filteredBookings.length === 0 ? (
-        <p>No bookings found.</p>
-      ) : (
-        <table className="bookings-table">
+      <div className="topBar">
+        <SearchBar
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+          placeholder="Search bookings..."
+        />
+      </div>
+      <div className="tableContainer">
+        <table>
+          <caption className="visuallyHidden">Bookings Table</caption>
           <thead>
             <tr>
               <th scope="col">Event</th>
@@ -79,7 +78,7 @@ const Bookings = () => {
             ))}
           </tbody>
         </table>
-      )}
+      </div>
     </div>
   );
 };

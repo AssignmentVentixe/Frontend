@@ -1042,10 +1042,37 @@ input:checked + .slider:before {
   }
 }
 
-.contactContainer a {
-  color: var(--link-color);
-  text-decoration: none;
-  font-weight: 600;
+/* Contact Page */
+.contactContainer {
+  h3 {
+    margin: 1rem 0;
+  }
+
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .contactDetails {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+    h7 {
+      margin-bottom: 0.3rem;
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    gap: 0.5rem;
+  }
+  li {
+    color: var(--text-color);
+    list-style-type: none;
+  }
 }
 
 /* Sign In/Up */
@@ -1149,6 +1176,8 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding: 1rem;
+
   ol {
     display: flex;
     flex-direction: column;
@@ -1276,4 +1305,39 @@ body.modalOpen {
   h5 {
     margin: 0.5rem 0;
   }
+}
+
+.tableContainer {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  font-size: 1em;
+  font-weight: 400;
+  padding: 0.8rem 2rem;
+  text-align: left;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    height: 1px;
+    background: var(--gray-30);
+  }
+}
+
+th {
+  color: var(--gray-70);
+}
+
+td {
+  color: var(--gray-100);
 }

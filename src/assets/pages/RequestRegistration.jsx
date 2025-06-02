@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import validateEmail from "../../common/EmailValidation";
+import api from "../../services/authApi";
 
 const RequestRegistration = () => {
   const [email, setEmail] = useState("");
@@ -26,21 +27,11 @@ const RequestRegistration = () => {
     }
     setLoading(true);
     try {
-      const res = await fetch(
-        "https://localhost:7107/api/auth/request-registration",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        }
-      );
-      if (!res.ok) {
-        const txt = await res.text();
-        throw new Error(txt || "Failed to send verification code");
-      }
+      await api.post("/auth/request-registration", { email });
+
       navigate("/register/verify", { state: { email } });
-    } catch (err) {
-      setError(err.message);
+    } catch {
+      setError("Failed to send verification code");
     } finally {
       setLoading(false);
     }
