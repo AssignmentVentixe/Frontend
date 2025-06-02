@@ -7,15 +7,25 @@ const Events = () => {
   const BATCH_SIZE = 10;
 
   const [events, setEvents] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
   const loaderRef = useRef(null);
 
   useEffect(() => {
+    setIsLoading(true);
+
     eventApi
       .get("/events")
-      .then((res) => setEvents(res.data))
-      .catch((err) => console.error(err));
+      .then((res) => {
+        setEvents(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   const filtered = events.filter((evt) => {
@@ -60,7 +70,11 @@ const Events = () => {
       </div>
 
       <div className="eventCardContainer">
-        {visibleEvents.length > 0 ? (
+        {isLoading ? (
+          <div className="spinnerContainer">
+            <span className="spinner"></span>
+          </div>
+        ) : visibleEvents.length > 0 ? (
           visibleEvents.map((evt) => <EventCard key={evt.id} {...evt} />)
         ) : (
           <span>No events found.</span>
