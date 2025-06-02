@@ -14,9 +14,7 @@ const Bookings = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await bookingApi.get("/bookings", {
-          withCredentials: true,
-        });
+        const response = await bookingApi.get("/bookings");
 
         if (response.status < 200 || response.status >= 300) {
           navigate("/login");

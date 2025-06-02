@@ -41,6 +41,10 @@ export default function LogIn() {
     try {
       const response = await login(email, password);
       if (response.status === 200) {
+        const token = response.data.token;
+        if (token) {
+          sessionStorage.setItem("jwtToken", token);
+        }
         const meResponse = await api.get("/auth/me");
         const userData = meResponse.data;
 
