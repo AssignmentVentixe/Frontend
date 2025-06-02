@@ -21,7 +21,7 @@ const Bookings = () => {
           return;
         }
 
-        const data = await response.json();
+        const data = response.data;
         setBookings(data);
       } catch {
         navigate("/login");
