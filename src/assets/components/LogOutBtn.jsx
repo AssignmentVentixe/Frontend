@@ -11,6 +11,7 @@ const LogOutBtn = () => {
     logout()
       .then(() => {
         sessionStorage.removeItem("user");
+        sessionStorage.removeItem("jwtToken");
         setUser(null);
         navigate("/login");
       })
