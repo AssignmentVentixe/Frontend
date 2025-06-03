@@ -51,6 +51,10 @@ const BuyTicketModal = ({
       await bookingApi.post("/bookings", {
         bookingEmail: email,
         eventId: eventId,
+        eventName: eventName,
+        eventLocation: location,
+        eventDate: date,
+        eventPrice: price,
       });
       showToast({ message: "Booking successful!", type: "success" });
       onClose();
