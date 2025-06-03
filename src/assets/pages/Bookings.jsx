@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/FormatDate";
 import SearchBar from "../components/SearchBar";
 import bookingApi from "../../services/bookingApi";
+import Spinner from "../components/Spinner";
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -43,8 +44,6 @@ const Bookings = () => {
     return searchString.includes(searchTerm.trim().toLowerCase());
   });
 
-  if (isLoading) return <div>Loading...</div>;
-
   return (
     <div className="bookings-container">
       <div className="topBar">
@@ -56,26 +55,33 @@ const Bookings = () => {
           placeholder="Search bookings..."
         />
       </div>
+
       <div className="tableContainer">
-        <table>
-          <caption className="visuallyHidden">Bookings Table</caption>
-          <thead>
-            <tr>
-              <th scope="col">Event</th>
-              <th scope="col">Event Date</th>
-              <th scope="col">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredBookings.map((booking) => (
-              <tr key={booking.id}>
-                <td>{booking.event.eventName}</td>
-                <td>{formatDate(booking.event.startDate)}</td>
-                <td>${booking.event.price}</td>
+        {isLoading ? (
+          <Spinner />
+        ) : filteredBookings.length > 0 ? (
+          <table>
+            <caption className="visuallyHidden">Bookings Table</caption>
+            <thead>
+              <tr>
+                <th scope="col">Event</th>
+                <th scope="col">Event Date</th>
+                <th scope="col">Price</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredBookings.map((booking) => (
+                <tr key={booking.id}>
+                  <td>{booking.event.eventName}</td>
+                  <td>{formatDate(booking.event.startDate)}</td>
+                  <td>${booking.event.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <span>No bookings found.</span>
+        )}
       </div>
     </div>
   );

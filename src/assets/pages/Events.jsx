@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import EventCard from "../components/EventCard";
 import SearchBar from "../components/SearchBar";
 import eventApi from "../../services/eventApi";
+import Spinner from "../components/Spinner";
 
 const Events = () => {
   const BATCH_SIZE = 10;
@@ -71,9 +72,7 @@ const Events = () => {
 
       <div className="eventCardContainer">
         {isLoading ? (
-          <div className="spinnerContainer">
-            <span className="spinner"></span>
-          </div>
+          <Spinner />
         ) : visibleEvents.length > 0 ? (
           visibleEvents.map((evt) => <EventCard key={evt.id} {...evt} />)
         ) : (

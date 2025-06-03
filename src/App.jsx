@@ -17,6 +17,7 @@ import RegisterLayout from "./assets/layouts/RegisterLayout";
 import RequestRegistration from "./assets/pages/RequestRegistration";
 import EnterEmailVerification from "./assets/pages/EnterEmailVerification";
 import CompleteRegistration from "./assets/pages/CompleteRegistration";
+import ProtectedRoute from "./assets/context/ProtectedRoute";
 
 export const App = () => {
   return (
@@ -29,7 +30,15 @@ export const App = () => {
           <Route index element={<Events />} />
           <Route path="events" element={<Events />} />
           <Route path="events/event-details/:id" element={<EventDetails />} />
-          <Route path="bookings" element={<Bookings />} />
+
+          <Route
+            path="bookings"
+            element={
+              <ProtectedRoute>
+                <Bookings />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="term-and-conditions" element={<TermAndConditions />} />

@@ -39,12 +39,8 @@ export default function AuthProvider({ children }) {
         setUser(res.data);
         sessionStorage.setItem("user", JSON.stringify(res.data));
       })
-      .catch((err) => {
-        if (err.response?.status === 401) {
-          setUser(null);
-        } else {
-          setUser(null);
-        }
+      .catch(() => {
+        setUser(null);
       })
       .finally(() => {
         setLoading(false);
