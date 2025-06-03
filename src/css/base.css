@@ -295,7 +295,7 @@ a {
   }
 
   @media (width >=1400px) {
-    
+    justify-content: flex-start;
     span {
       display: block;
     }
