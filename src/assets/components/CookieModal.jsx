@@ -122,14 +122,14 @@ export const CookieModal = () => {
           <div className="buttons">
             <button
               type="button"
-              className="cookie-btn cookie-all"
+              className="cookieBtn cookieAllBtn"
               onClick={handleAcceptAll}
             >
               <span>Accept All</span>
             </button>
             <button
               type="button"
-              className="cookie-btn cookie-selected"
+              className="cookieBtn cookieSelectedBtn"
               onClick={handleSaveSelected}
             >
               <span>Save Selected</span>

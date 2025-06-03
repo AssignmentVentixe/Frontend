@@ -698,7 +698,7 @@ input:checked + .slider:before {
   margin-top: 2rem;
 }
 
-.cookie-btn {
+.cookieBtn {
   width: 100%;
   font-size: 0.9rem;
   padding: 0.9rem 1rem;
@@ -706,16 +706,16 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
-.cookie-all {
+.cookieAllBtn {
   background-color: var(--primary-100);
 }
 
-.cookie-selected {
+.cookieSelectedBtn {
   background-color: var(--secondary-110);
   color: #fff;
 }
 
-.cookie-btn:hover {
+.cookieBtn:hover {
   background-color: var(green-100);
   color: var(--white-100);
   font-weight: 700;
