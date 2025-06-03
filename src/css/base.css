@@ -205,6 +205,7 @@ button {
   color: var(--button-primary-text-color);
   border-radius: 3rem;
   justify-self: end;
+  box-shadow: 1px 2px 6px rgba(73, 71, 73, 0.014);
 }
 
 .btnClose {
@@ -302,8 +303,8 @@ a {
   }
 }
 
-.navlink.active::after {
-  @media (width >=1400px) {
+@media (min-width: 1400px) {
+  .navlink.active::after {
     content: "";
     position: absolute;
     background-color: var(--primary-100);
@@ -704,6 +705,7 @@ input:checked + .slider:before {
   padding: 0.9rem 1rem;
   border: none;
   cursor: pointer;
+  box-shadow: 1px 2px 6px rgba(73, 71, 73, 0.014);
 }
 
 .cookieAllBtn {
@@ -1149,6 +1151,7 @@ input:checked + .slider:before {
 }
 
 .formSubmit {
+  box-shadow: 1px 2px 6px rgba(73, 71, 73, 0.014);
   border-radius: 2rem;
   background-color: var(--primary-100);
 }
