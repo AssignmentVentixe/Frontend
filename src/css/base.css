@@ -272,8 +272,13 @@ a {
   font-weight: 600;
   display: flex;
   align-items: center;
+
   gap: 0.7rem;
   position: relative;
+
+  @media (width >=768px) {
+    justify-content: center;
+  }
 
   span {
     display: none;
@@ -290,6 +295,7 @@ a {
   }
 
   @media (width >=1400px) {
+    
     span {
       display: block;
     }
